@@ -1,10 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
+import Dropdown from './components/Dropdown'
+import PostForm from './components/PostForm'
 
 function App() {
   return (
     <div className="App">
-      Ricky is ass
+      <Dropdown />
+      {/* <PostForm /> */}
     </div>
   );
 }
