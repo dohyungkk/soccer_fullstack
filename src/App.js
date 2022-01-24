@@ -1,13 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
-import Dropdown from './components/Dropdown'
+import React, { Component } from 'react'
 import PostForm from './components/PostForm'
 
 function App() {
   return (
     <div className="App">
-      <Dropdown />
-      {/* <PostForm /> */}
+      {/* <Dropdown /> */}
+      <PostForm />
     </div>
   );
 }
