@@ -4,7 +4,7 @@ import PostForm from './components/PostForm.js'
 const App = () => {
   return (
     <>
-      <h1>teamInfo 어플</h1>
+      <h1>no arsenal</h1>
 
       <PostForm />
     </>
