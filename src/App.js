@@ -1,12 +1,14 @@
-import React, { Component } from 'react'
-import PostForm from './components/PostForm'
+import React from 'react'
+import PostForm from './components/PostForm.js'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <>
+      <h1>teamInfo 어플</h1>
+
       <PostForm />
-    </div>
-  );
+    </>
+  )
 }
 
 export default App;
