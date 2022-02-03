@@ -6,7 +6,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
-
 const PostForm = () => {
     const [teamName, setTeamName] = useState("")
     const [coach, setCoach] = useState("")
@@ -23,9 +22,8 @@ const PostForm = () => {
         setCoach("")
         setUniform("")
         setStadium("")
-        // console.log(newData)
     }
-    console.log(teamData)
+    // console.log(teamData)
 
     return (
         <>
@@ -46,6 +44,7 @@ const PostForm = () => {
                         label="Team Name"
                         onChange={(e) => {setTeamName(e.target.value)}}
                     >
+                        <MenuItem value=""></MenuItem>
                         <MenuItem value="Manchester">Manchester</MenuItem>
                         <MenuItem value="Liverpool">Liverpool</MenuItem>
                         <MenuItem value="Chelsea">Chelsea</MenuItem>
@@ -74,23 +73,10 @@ const PostForm = () => {
                         onChange={(e) => {setStadium(e.target.value)}}
                     />
                 </div>
+                {/* section from material-ui */}
                 <Button type="submit" onClick={submitData} variant="contained">Submit</Button>
                 {/* material ui 안쓸때는 form 에 onsubmit 넣엇는데 이거쓰면 button 에 onsubmit? */}
             </Box>
-            {/* <div>
-                <form onSubmit={submitData}>
-                    <div>
-                        <input type="text" placeholder="Enter the coach" value={coach} onChange={(e) => {setCoach(e.target.value)}} />
-                    </div>
-                    <div>
-                        <input type="text" placeholder="Enter the uniform" value={uniform} onChange={(e) => {setUniform(e.target.value)}} />
-                    </div>
-                    <div>
-                        <input type="text" placeholder="Enter the stadium" value={stadium} onChange={(e) => {setStadium(e.target.value)}} />
-                    </div>
-                    <button type="submit">Submit</button>
-                </form>
-            </div> */}
         </>
     )
 }
