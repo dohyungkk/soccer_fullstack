@@ -31,7 +31,6 @@ const PostForm = () => {
         setCoach("")
         setUniform("")
         setStadium("")
-
         try {
             axios.post("http://localhost:8888/post_team", {
                 teamData
@@ -62,9 +61,9 @@ const PostForm = () => {
                         onChange={(e) => {setTeamName(e.target.value)}}
                     >
                         <MenuItem value=""></MenuItem>
-                        <MenuItem value="Manchester">Manchester</MenuItem>
-                        <MenuItem value="Liverpool">Liverpool</MenuItem>
-                        <MenuItem value="Chelsea">Chelsea</MenuItem>
+                        <MenuItem value="Manchester"><img src = "https://resources.premierleague.com/premierleague/badges/50/t1.png"/>Manchester</MenuItem>
+                        <MenuItem value="Liverpool"><img src = "https://resources.premierleague.com/premierleague/badges/50/t14.png" />Liverpool</MenuItem>
+                        <MenuItem value="Chelsea"><img src = "https://resources.premierleague.com/premierleague/badges/50/t8.png" />Chelsea</MenuItem>
                     </Select>
                 </div>
                 <div>
@@ -90,7 +89,6 @@ const PostForm = () => {
                         onChange={(e) => {setStadium(e.target.value)}}
                     />
                 </div>
-                {/* section from material-ui */}
                 <Button type="submit" onClick={submitData} variant="contained">Submit</Button>
             </Box>
             {home}

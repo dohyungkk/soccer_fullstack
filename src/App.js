@@ -8,7 +8,7 @@ const App = () => {
 
       <PostForm />
     </>
-  )
+  );
 }
 
 export default App;
