@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -13,6 +14,14 @@ const PostForm = () => {
     const [stadium, setStadium] = useState("")
     const [teamData, setTeamData] = useState([])
 
+    const [ home, setHome ] = useState("")
+
+    useEffect(() => {
+        axios.get("http://localhost:8888/home").then(function(response) {
+            setHome(response.data)
+        })
+    }, [])
+
     const submitData = (e) => {
         e.preventDefault()
 
@@ -22,8 +31,16 @@ const PostForm = () => {
         setCoach("")
         setUniform("")
         setStadium("")
+
+        try {
+            axios.post("http://localhost:8888/post_team", {
+                teamData
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
-    // console.log(teamData)
+    console.log(teamData)
 
     return (
         <>
@@ -75,8 +92,8 @@ const PostForm = () => {
                 </div>
                 {/* section from material-ui */}
                 <Button type="submit" onClick={submitData} variant="contained">Submit</Button>
-                {/* material ui 안쓸때는 form 에 onsubmit 넣엇는데 이거쓰면 button 에 onsubmit? */}
             </Box>
+            {home}
         </>
     )
 }
