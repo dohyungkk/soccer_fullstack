@@ -22,8 +22,9 @@ const PostForm = () => {
         setCoach("")
         setUniform("")
         setStadium("")
+        // console.log(newData)
     }
-    // console.log(teamData)
+    console.log(teamData)
 
     return (
         <>
@@ -44,6 +45,9 @@ const PostForm = () => {
                         label="Team Name"
                         onChange={(e) => {setTeamName(e.target.value)}}
                     >
+                        <MenuItem value="Manchester"><img src = "https://resources.premierleague.com/premierleague/badges/50/t1.png"/>Manchester</MenuItem>
+                        <MenuItem value="Liverpool"><img src = "https://resources.premierleague.com/premierleague/badges/50/t14.png" />Liverpool</MenuItem>
+                        <MenuItem value="Chelsea"><img src = "https://resources.premierleague.com/premierleague/badges/50/t8.png" />Chelsea</MenuItem>
                         <MenuItem value=""></MenuItem>
                         <MenuItem value="Manchester">Manchester</MenuItem>
                         <MenuItem value="Liverpool">Liverpool</MenuItem>
@@ -73,6 +77,23 @@ const PostForm = () => {
                         onChange={(e) => {setStadium(e.target.value)}}
                     />
                 </div>
+                <Button type="submit" onClick={submitData} variant="contained">Submit</Button>
+                {/* material ui 안쓸때는 form 에 onsubmit 넣엇는데 이거쓰면 button 에 onsubmit? */}
+            </Box>
+            {/* <div>
+                <form onSubmit={submitData}>
+                    <div>
+                        <input type="text" placeholder="Enter the coach" value={coach} onChange={(e) => {setCoach(e.target.value)}} />
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Enter the uniform" value={uniform} onChange={(e) => {setUniform(e.target.value)}} />
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Enter the stadium" value={stadium} onChange={(e) => {setStadium(e.target.value)}} />
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div> */}
                 {/* section from material-ui */}
                 <Button type="submit" onClick={submitData} variant="contained">Submit</Button>
                 {/* material ui 안쓸때는 form 에 onsubmit 넣엇는데 이거쓰면 button 에 onsubmit? */}
