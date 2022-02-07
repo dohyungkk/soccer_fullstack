@@ -1,11 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import PostForm from './components/PostForm.js'
 
 function App() {
   return (
-    <div className="App">
-      hello world
-    </div>
+    <>
+
+      <h1>no arsenal</h1>
+
+      <PostForm />
+    </>
   );
 }
 
