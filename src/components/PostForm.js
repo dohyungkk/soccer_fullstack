@@ -6,7 +6,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
-
 const PostForm = () => {
     const [teamName, setTeamName] = useState("")
     const [coach, setCoach] = useState("")
@@ -49,6 +48,10 @@ const PostForm = () => {
                         <MenuItem value="Manchester"><img src = "https://resources.premierleague.com/premierleague/badges/50/t1.png"/>Manchester</MenuItem>
                         <MenuItem value="Liverpool"><img src = "https://resources.premierleague.com/premierleague/badges/50/t14.png" />Liverpool</MenuItem>
                         <MenuItem value="Chelsea"><img src = "https://resources.premierleague.com/premierleague/badges/50/t8.png" />Chelsea</MenuItem>
+                        <MenuItem value=""></MenuItem>
+                        <MenuItem value="Manchester">Manchester</MenuItem>
+                        <MenuItem value="Liverpool">Liverpool</MenuItem>
+                        <MenuItem value="Chelsea">Chelsea</MenuItem>
                     </Select>
                 </div>
                 <div>
@@ -91,6 +94,10 @@ const PostForm = () => {
                     <button type="submit">Submit</button>
                 </form>
             </div> */}
+                {/* section from material-ui */}
+                <Button type="submit" onClick={submitData} variant="contained">Submit</Button>
+                {/* material ui 안쓸때는 form 에 onsubmit 넣엇는데 이거쓰면 button 에 onsubmit? */}
+            </Box>
         </>
     )
 }

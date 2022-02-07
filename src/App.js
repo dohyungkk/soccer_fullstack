@@ -1,10 +1,9 @@
 import React from 'react'
 import PostForm from './components/PostForm.js'
 
-function App() {
+const App = () => {
   return (
     <>
-
       <h1>no arsenal</h1>
 
       <PostForm />
