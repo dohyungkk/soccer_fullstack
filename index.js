@@ -1,6 +1,6 @@
 const express = require('express')
-const dummyData = require('./dummy')
 const cors = require("cors")
+const dummyData = require('./dummy')
 
 const app = express()
 
@@ -27,7 +27,6 @@ app.post('/post_team', async (req, res) => {
     let { teamData } = req.body
     console.log(teamData)
 })
-
 
 app.listen(PORT, () => {
     console.log(`API running at ${HOST}:${PORT}!`)
