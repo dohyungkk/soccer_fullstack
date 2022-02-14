@@ -2,16 +2,19 @@ import React from 'react'
 import PostForm from './components/PostForm.js'
 import logo from './img/logo.png';
 import Arsenal from './img/4senal.png';
-
-console.log(Arsenal);
-console.log(logo);
+import Ricky from './img/Ricky.png'
 
 const App = () => {
+  const clickMe = () =>{
+      <img src={Ricky}/>
+  }
   return (
     <>
-      <img src={logo} alt="Logo" />
-      <h1>no arsenal</h1>  
-      <img src={Arsenal} alt="Aresnal" />
+      <a target="_blank" href="https://www.premierleague.com/" role="menuitem">
+        <img src={logo}/>
+      </a>
+      <h1>no arsenal</h1> 
+      <img onClick={clickMe} src={Arsenal}/>
       <section>
           <PostForm />
       </section>

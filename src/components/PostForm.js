@@ -13,6 +13,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import MU from './img/MU.png';
+import CFC from './img/Chelsea.png'
+import LFC from './img/Liverpool.png'
 
 const PostForm = () => {
     const [teamName, setTeamName] = useState("")
@@ -47,8 +50,6 @@ const PostForm = () => {
         }
     }
     console.log(teamData)
-
-    
 
     const editData = (id) => {
         const getData = (id) => {
@@ -93,10 +94,9 @@ const PostForm = () => {
                         label="Team Name"
                         onChange={(e) => {setTeamName(e.target.value)}}
                     >
-                        <MenuItem value=""></MenuItem>
-                        <MenuItem value="Manchester"><img src = "https://resources.premierleague.com/premierleague/badges/50/t1.png"/>Manchester</MenuItem>
-                        <MenuItem value="Liverpool"><img src = "https://resources.premierleague.com/premierleague/badges/50/t14.png" />Liverpool</MenuItem>
-                        <MenuItem value="Chelsea"><img src = "https://resources.premierleague.com/premierleague/badges/50/t8.png" />Chelsea</MenuItem>
+                        <MenuItem value="Manchester"><img src = {MU}/>Manchester</MenuItem>
+                        <MenuItem value="Liverpool"><img src = {LFC}/>Liverpool</MenuItem>
+                        <MenuItem value="Chelsea"><img src = {CFC}/>Chelsea</MenuItem>
                     </Select>
                 </div>
                 <div>
