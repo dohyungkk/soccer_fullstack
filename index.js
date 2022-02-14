@@ -1,33 +1,28 @@
 const express = require('express')
 const cors = require("cors")
-const dummyData = require('./dummy')
-
 const app = express()
+const controller = require('./controller/controller')
 
 const HOST = 'http://localhost'
 const PORT = 8888
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(cors())
 
-app.get('/', cors(), async (req,res) => {
-    res.send('rickshouse soccer api')
-})
+const corsOptions ={
+    origin:'*', 
+    credentials:true,         
+    optionSuccessStatus:200,
+}
+app.use(cors(corsOptions))
 
-app.get('/team', cors(), async (req,res) => {
-    res.status(200).json(dummyData)
-})
+app.get('/', cors(), controller.homeScreen)
+app.get('/team', cors(), controller.sendTeam)
+app.get('/home', cors(), controller.sendHome)
+app.post('/post_team', cors(), controller.postTeam)
+app.patch('/:id', cors(), controller.updateTeam)
+app.delete('/:id', cors(), controller.deleteTeam)
 
-app.get('/home', cors(), async (req, res) => {
-    res.send("data for home")
-})
-
-app.post('/post_team', async (req, res) => {
-    let { teamData } = req.body
-    console.log(teamData)
-})
-
-app.listen(PORT, () => {
+app.listen(PORT, cors(), () => {
     console.log(`API running at ${HOST}:${PORT}!`)
 })
