@@ -2,7 +2,7 @@ const dummyData = require('../dummy')
 const teams = []
 
 module.exports = {
-    homeScreen:
+    initialize:
     async (req,res) => {
         res.send('rickshouse soccer api')
     },
@@ -10,15 +10,12 @@ module.exports = {
     async (req,res) => {
         res.status(200).json(dummyData)
     },
-    sendHome:
-    async (req, res) => {
-        res.send("data for home")
-    },
     postTeam:
     async (req, res) => {
         let { teamData } = req.body
         console.log(teamData)
     },
+    //idempotent
     updateTeam:
     async (req, res) => {
         res.json( { teamData } = req.body )

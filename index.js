@@ -16,12 +16,11 @@ const corsOptions ={
 }
 app.use(cors(corsOptions))
 
-app.get('/', cors(), controller.homeScreen)
+app.get('/', cors(), controller.initialize)
 app.get('/team', cors(), controller.sendTeam)
-app.get('/home', cors(), controller.sendHome)
-app.post('/post_team', cors(), controller.postTeam)
-app.patch('/:id', cors(), controller.updateTeam)
-app.delete('/:id', cors(), controller.deleteTeam)
+app.post('/team', cors(), controller.postTeam)
+app.patch('/team/:id', cors(), controller.updateTeam)
+app.delete('/team/:id', cors(), controller.deleteTeam)
 
 app.listen(PORT, cors(), () => {
     console.log(`API running at ${HOST}:${PORT}!`)
