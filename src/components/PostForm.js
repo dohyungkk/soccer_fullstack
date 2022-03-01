@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -13,9 +13,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Modal from '@mui/material/Modal';
+// import { Modal, Input } from "antd";
 import MU from './img/MU.png';
 import CFC from './img/Chelsea.png'
 import LFC from './img/Liverpool.png'
+import ReadOnly from './ReadOnly.js'
+import Editable from './Editable'
 
 const PostForm = () => {
     const [teamName, setTeamName] = useState("")
@@ -26,13 +30,23 @@ const PostForm = () => {
 
     const [ home, setHome ] = useState("")
 
+    const [ editTableData, setEditTableData ] = useState({
+        teamName: "",
+        coach: "",
+        uniform: "",
+        stadium: "",
+    })
+
+    const [ editID, setEditID ] = useState(null)
+    const [ teamID, setTeamID ] = useState()
+
     useEffect(() => {
         axios.get("http://localhost:8888/home").then(function(response) {
             setHome(response.data)
         })
     }, [])
 
-    const submitData = (e) => {
+    const submitData = async (e) => {
         e.preventDefault()
 
         const newData = {teamName, coach, uniform, stadium}
@@ -42,7 +56,7 @@ const PostForm = () => {
         setUniform("")
         setStadium("")
         try {
-            axios.post("http://localhost:8888/post_team", {
+            axios.post("http://localhost:8888/team", {
                 teamData
             })
         } catch (error) {
@@ -51,29 +65,96 @@ const PostForm = () => {
     }
     console.log(teamData)
 
-    const editData = (id) => {
-        const getData = (id) => {
-            const team = teamData.find(item => item.id === id)
-            return team
-        }
-        const temp = teamData
-        const index = temp.indexOf(getData(id))
-        const newData = temp[index]
-        setTeamData({
-            id: newData['id'],
-            teamName: newData['teamName'],
-            coach: newData['coach'],
-            uniform: newData['uniform'],
-            stadium: newData['stadium']
-        })
+    // const editData = (teamInfo) => {
+    //     setIsEditing(true);
+    //     setEditTeam({ ...teamInfo });
+    // };
+    // const resetEditing = () => {
+    //     setIsEditing(false);
+    //     setEditTeam(null);
+    // };
+    const editData = (e) => {
+        e.preventDefault()
+        const fieldName = e.target.getAttribute("name");
+        const fieldValue = e.target.value;
+
+        const newFormData = { ...editTableData };
+        newFormData[fieldName] = fieldValue;
+
+        setEditTableData(newFormData);
     }
 
+    const handleEditTableSubmit = (e) => {
+        e.preventDefault();
+    
+        const editedTeam = {
+          teamName: editTableData.teamName,
+          coach: editTableData.coach,
+          uniform: editTableData.uniform,
+          stadium: editTableData.stadium,
+        };
+    
+        const newTeamID = [...teamID];
+    
+        const index = teamID.findIndex((team) => team.id === editID);
+    
+        newTeamID[index] = editedTeam;
+    
+        setTeamID(newTeamID);
+        setEditID(null);
+    };
+
+    const handleEditClick = (event, teamID) => {
+        event.preventDefault();
+        setTeamID(teamID.id);
+    
+        const formValues = {
+          teamName: teamID.teamName,
+          coach: teamID.coach,
+          uniform: teamID.uniform,
+          stadium: teamID.stadium,
+        };
+    
+        setEditTableData(formValues);
+    };
+
+    const handleCancelClick = () => {
+        setTeamID(null);
+    };
+
     const deleteData = (teamInfo) => {
-        const newTeam = [...teamData]
-        const index = teamData.findIndex((team) => team.id === teamInfo)
-        newTeam.splice(index, 1)
-        setTeamData(newTeam)
+        // const newTeam = [...teamData]
+        // const index = teamData.findIndex((team) => team.id === teamInfo.id)
+        // newTeam.splice(index, 1)
+        // setTeamData(newTeam)
+        setTeamData((del) => {
+            const newTeam = [...teamData]
+            const index = del.filter((team) => team.id !== teamInfo.id)
+            newTeam.splice(index, 1)
+            return newTeam
+        })
     }
+    // const handleDeleteClick = (newID) => {
+    //     const newTeam = [...teamID];
+    
+    //     const index = teamID.findIndex((team) => team.id === newID);
+    
+    //     newTeam.splice(index, 1);
+    
+    //     setTeamID(newTeam);
+    // };
+
+    // const deleteData = async (i) => {
+    //     axios.delete(`http://localhost:8888/team/${id}/`)
+    //     .then(res => {
+    //         const del = teamData.filter(team => id != team.id)
+    //         setTeamData(del)
+    //         console.log('res', res)
+    //     })
+    //     const newTeam = [...teamData]
+    //     newTeam.splice(i, 1)
+    //     setTeamData(newTeam)
+    // }
 
     return (
         <>
@@ -84,6 +165,7 @@ const PostForm = () => {
                 }}
                 noValidate
                 autoComplete="off"
+                onSubmit={handleEditTableSubmit}
             >
                 <div>
                     <InputLabel id="demo-simple-select-label">Team Name</InputLabel>
@@ -139,22 +221,24 @@ const PostForm = () => {
                     </TableHead>
                     <TableBody>
                         {teamData.map((row) => (
-                            <TableRow
-                                key={row.name}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                <TableCell component="th" scope="row">
-                                    {row.name}
-                                </TableCell>
-                                <TableCell align="right">{row.teamName}</TableCell>
-                                <TableCell align="right">{row.coach}</TableCell>
-                                <TableCell align="right">{row.uniform}</TableCell>
-                                <TableCell align="right">{row.stadium}</TableCell>
-                                <TableCell align="right">
-                                    <Button type="edit" onClick={editData} variant="contained" color="success">Edit</Button>
-                                    <Button type="delete" onClick={deleteData} variant="contained" color="error">Delete</Button>
-                                </TableCell>
-                            </TableRow>
+                            <Fragment>
+                                {/* {editID === teamID.id ?  */}
+                                (
+                                    <Editable 
+                                        editTableData={editTableData}
+                                        editData={editData}
+                                        handleCancelClick={handleCancelClick}
+                                    />
+                                ) : (
+                                    <ReadOnly 
+                                        row={row} 
+                                        handleEditClick={handleEditClick}
+                                        deleteData={deleteData}
+                                    />
+                                )
+                                {/* } */}
+                            </Fragment>
+                            
                         ))}
                     </TableBody>
                 </Table>
@@ -164,3 +248,56 @@ const PostForm = () => {
 }
 
 export default PostForm;
+                                    {/* <Modal
+                                        title="Edit Team"
+                                        visible={isEditing}
+                                        okText="Save"
+                                        onCancel={() => {
+                                            resetEditing();
+                                        }}
+                                        onOk={() => {
+                                            setTeamData((pre) => {
+                                            return pre.map((team) => {
+                                                if (team.id === editTeam.id) {
+                                                    return editTeam;
+                                                } else {
+                                                    return team;
+                                                }
+                                                });
+                                            });
+                                            resetEditing();
+                                        }}
+                                        >
+                                        <TextField
+                                            value={editTeam?.teamName}
+                                            onChange={(e) => {
+                                            setEditTeam((pre) => {
+                                                return { ...pre, teamName: e.target.value };
+                                                });
+                                            }}
+                                        />
+                                        <TextField
+                                            value={editTeam?.coach}
+                                            onChange={(e) => {
+                                                setEditTeam((pre) => {
+                                                return { ...pre, coach: e.target.value };
+                                                });
+                                            }}
+                                        />
+                                        <TextField
+                                            value={editTeam?.uniform}
+                                            onChange={(e) => {
+                                                setEditTeam((pre) => {
+                                                return { ...pre, uniform: e.target.value };
+                                                });
+                                            }}
+                                        />
+                                        <TextField
+                                            value={editTeam?.stadium}
+                                            onChange={(e) => {
+                                                setEditTeam((pre) => {
+                                                return { ...pre, stadium: e.target.value };
+                                                });
+                                            }}
+                                        />
+                                    </Modal> */}
