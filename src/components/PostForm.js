@@ -219,7 +219,7 @@ const PostForm = () => {
                 </div>
                 <Button type="submit" onClick={submitData} variant="contained">{teamData.id ? "Save" : "Submit"}</Button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <Button type="save" onClick={Save} variant="contained">{teamData.id ? "Save" : "Save"}</Button>
+                <Button type="Edit" onClick={Save} variant="contained">{teamData.id ? "Save" : "Edit"}</Button>
                 
             </Box>
             {home}
