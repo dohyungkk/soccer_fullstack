@@ -15,9 +15,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Modal from '@mui/material/Modal';
 // import { Modal, Input } from "antd";
-import MU from './img/MU.png';
-import CFC from './img/Chelsea.png'
-import LFC from './img/Liverpool.png'
+import MU from '../img/MU.png';
+import CFC from '../img/Chelsea.png'
+import LFC from '../img/Liverpool.png'
 import ReadOnly from './ReadOnly.js'
 import Editable from './Editable'
 

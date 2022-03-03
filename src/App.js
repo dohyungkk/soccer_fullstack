@@ -1,6 +1,6 @@
 import React from 'react'
 import PostForm from './components/PostForm.js'
-import logo from './img/logo.png';
+import logo from './img/PLlogo.png';
 import Arsenal from './img/4senal.png';
 import Ricky from './img/Ricky.png'
 
