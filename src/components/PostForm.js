@@ -27,6 +27,7 @@ const PostForm = () => {
     const [uniform, setUniform] = useState("")
     const [stadium, setStadium] = useState("")
     const [teamData, setTeamData] = useState([])
+    const [counter, setCounter] = useState(1)
 
     const [ home, setHome ] = useState("")
 
@@ -49,7 +50,14 @@ const PostForm = () => {
     const submitData = async (e) => {
         e.preventDefault()
 
-        const newData = {teamName, coach, uniform, stadium}
+        setCounter(counter => counter + 1)
+        const newData = {
+            id: counter,
+            teamName: teamName, 
+            coach: coach, 
+            uniform: uniform, 
+            stadium: stadium,
+        }
         setTeamData([...teamData, newData])
         setTeamName("")
         setCoach("")
@@ -64,6 +72,7 @@ const PostForm = () => {
         }
     }
     console.log(teamData)
+    //contacts = teamData?
 
     // const editData = (teamInfo) => {
     //     setIsEditing(true);
@@ -248,56 +257,3 @@ const PostForm = () => {
 }
 
 export default PostForm;
-                                    {/* <Modal
-                                        title="Edit Team"
-                                        visible={isEditing}
-                                        okText="Save"
-                                        onCancel={() => {
-                                            resetEditing();
-                                        }}
-                                        onOk={() => {
-                                            setTeamData((pre) => {
-                                            return pre.map((team) => {
-                                                if (team.id === editTeam.id) {
-                                                    return editTeam;
-                                                } else {
-                                                    return team;
-                                                }
-                                                });
-                                            });
-                                            resetEditing();
-                                        }}
-                                        >
-                                        <TextField
-                                            value={editTeam?.teamName}
-                                            onChange={(e) => {
-                                            setEditTeam((pre) => {
-                                                return { ...pre, teamName: e.target.value };
-                                                });
-                                            }}
-                                        />
-                                        <TextField
-                                            value={editTeam?.coach}
-                                            onChange={(e) => {
-                                                setEditTeam((pre) => {
-                                                return { ...pre, coach: e.target.value };
-                                                });
-                                            }}
-                                        />
-                                        <TextField
-                                            value={editTeam?.uniform}
-                                            onChange={(e) => {
-                                                setEditTeam((pre) => {
-                                                return { ...pre, uniform: e.target.value };
-                                                });
-                                            }}
-                                        />
-                                        <TextField
-                                            value={editTeam?.stadium}
-                                            onChange={(e) => {
-                                                setEditTeam((pre) => {
-                                                return { ...pre, stadium: e.target.value };
-                                                });
-                                            }}
-                                        />
-                                    </Modal> */}
