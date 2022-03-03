@@ -164,6 +164,10 @@ const PostForm = () => {
     //     newTeam.splice(i, 1)
     //     setTeamData(newTeam)
     // }
+    
+    const Save = () =>{
+        alert("Save")
+    }
 
     return (
         <>
@@ -214,6 +218,9 @@ const PostForm = () => {
                     />
                 </div>
                 <Button type="submit" onClick={submitData} variant="contained">{teamData.id ? "Save" : "Submit"}</Button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <Button type="Edit" onClick={Save} variant="contained">{teamData.id ? "Save" : "Edit"}</Button>
+                
             </Box>
             {home}
             <TableContainer component={Paper}>
