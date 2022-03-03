@@ -13,8 +13,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Modal from '@mui/material/Modal';
-// import { Modal, Input } from "antd";
 import MU from './img/MU.png';
 import CFC from './img/Chelsea.png'
 import LFC from './img/Liverpool.png'
@@ -56,7 +54,7 @@ const PostForm = () => {
             teamName: teamName, 
             coach: coach, 
             uniform: uniform, 
-            stadium: stadium,
+            stadium: stadium
         }
         setTeamData([...teamData, newData])
         setTeamName("")
@@ -109,19 +107,19 @@ const PostForm = () => {
     
         newTeamID[index] = editedTeam;
     
-        setTeamID(newTeamID);
+        setTeamData(newTeamID);
         setEditID(null);
     };
 
-    const handleEditClick = (event, teamID) => {
-        event.preventDefault();
-        setTeamID(teamID.id);
+    const handleEditClick = (e, teamData) => {
+        e.preventDefault();
+        setTeamData(teamData.id);
     
         const formValues = {
-          teamName: teamID.teamName,
-          coach: teamID.coach,
-          uniform: teamID.uniform,
-          stadium: teamID.stadium,
+          teamName: teamData.teamName,
+          coach: teamData.coach,
+          uniform: teamData.uniform,
+          stadium: teamData.stadium,
         };
     
         setEditTableData(formValues);
@@ -132,16 +130,16 @@ const PostForm = () => {
     };
 
     const deleteData = (teamInfo) => {
-        // const newTeam = [...teamData]
-        // const index = teamData.findIndex((team) => team.id === teamInfo.id)
-        // newTeam.splice(index, 1)
-        // setTeamData(newTeam)
-        setTeamData((del) => {
-            const newTeam = [...teamData]
-            const index = del.filter((team) => team.id !== teamInfo.id)
-            newTeam.splice(index, 1)
-            return newTeam
-        })
+        // setTeamData((del) => {
+        //     const newTeam = [...teamData]
+        //     const index = del.filter((team) => team.id !== teamInfo.id)
+        //     newTeam.splice(index, 1)
+        //     return newTeam
+        // })
+        const newTeam = [...teamData]
+        const index = teamData.findIndex((team) => team.id === teamInfo)
+        newTeam.splice(index, 1)
+        setTeamData(newTeam)
     }
     // const handleDeleteClick = (newID) => {
     //     const newTeam = [...teamID];
@@ -231,7 +229,7 @@ const PostForm = () => {
                     <TableBody>
                         {teamData.map((row) => (
                             <Fragment>
-                                {/* {editID === teamID.id ?  */}
+                                {editID === row.id ? 
                                 (
                                     <Editable 
                                         editTableData={editTableData}
@@ -244,10 +242,8 @@ const PostForm = () => {
                                         handleEditClick={handleEditClick}
                                         deleteData={deleteData}
                                     />
-                                )
-                                {/* } */}
+                                )}
                             </Fragment>
-                            
                         ))}
                     </TableBody>
                 </Table>
