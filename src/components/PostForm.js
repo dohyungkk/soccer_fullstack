@@ -13,9 +13,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import MU from './img/MU.png';
-import CFC from './img/Chelsea.png'
-import LFC from './img/Liverpool.png'
+import MU from '../img/MU.png';
+import CFC from '../img/chelsea.png'
+import LFC from '../img/liverpool.png'
 import ReadOnly from './ReadOnly.js'
 import Editable from './Editable'
 
@@ -40,7 +40,7 @@ const PostForm = () => {
     const [ teamID, setTeamID ] = useState()
 
     useEffect(() => {
-        axios.get("http://localhost:8888/home").then(function(response) {
+        axios.get("http://localhost:8888/team").then(function(response) {
             setHome(response.data)
         })
     }, [])
@@ -70,16 +70,7 @@ const PostForm = () => {
         }
     }
     console.log(teamData)
-    //contacts = teamData?
 
-    // const editData = (teamInfo) => {
-    //     setIsEditing(true);
-    //     setEditTeam({ ...teamInfo });
-    // };
-    // const resetEditing = () => {
-    //     setIsEditing(false);
-    //     setEditTeam(null);
-    // };
     const editData = (e) => {
         e.preventDefault()
         const fieldName = e.target.getAttribute("name");
@@ -121,7 +112,6 @@ const PostForm = () => {
           uniform: teamData.uniform,
           stadium: teamData.stadium,
         };
-    
         setEditTableData(formValues);
     };
 
@@ -130,38 +120,15 @@ const PostForm = () => {
     };
 
     const deleteData = (teamInfo) => {
-        // setTeamData((del) => {
-        //     const newTeam = [...teamData]
-        //     const index = del.filter((team) => team.id !== teamInfo.id)
-        //     newTeam.splice(index, 1)
-        //     return newTeam
-        // })
         const newTeam = [...teamData]
         const index = teamData.findIndex((team) => team.id === teamInfo)
         newTeam.splice(index, 1)
         setTeamData(newTeam)
     }
-    // const handleDeleteClick = (newID) => {
-    //     const newTeam = [...teamID];
-    
-    //     const index = teamID.findIndex((team) => team.id === newID);
-    
-    //     newTeam.splice(index, 1);
-    
-    //     setTeamID(newTeam);
-    // };
 
-    // const deleteData = async (i) => {
-    //     axios.delete(`http://localhost:8888/team/${id}/`)
-    //     .then(res => {
-    //         const del = teamData.filter(team => id != team.id)
-    //         setTeamData(del)
-    //         console.log('res', res)
-    //     })
-    //     const newTeam = [...teamData]
-    //     newTeam.splice(i, 1)
-    //     setTeamData(newTeam)
-    // }
+    const Save = () =>{
+        alert("Save")
+    }
 
     return (
         <>
@@ -211,7 +178,13 @@ const PostForm = () => {
                         onChange={(e) => {setStadium(e.target.value)}}
                     />
                 </div>
-                <Button type="submit" onClick={submitData} variant="contained">{teamData.id ? "Save" : "Submit"}</Button>
+                <Button type="submit" onClick={submitData} variant="contained">
+                    {/* {teamData.id ? "Save" : "Submit"} */}
+                    Submit
+                </Button>
+                {/* &nbsp;&nbsp;&nbsp;&nbsp;
+                <Button type="Edit" onClick={Save} variant="contained">{teamData.id ? "Save" : "Edit"}</Button> */}
+                
             </Box>
             {home}
             <TableContainer component={Paper}>

@@ -17,6 +17,7 @@ const ReadOnly = ({ row, editData, deleteData }) => {
             <TableCell component="th" scope="row">
                 {row.name}
             </TableCell>
+            <TableCell align="right">{row.id}</TableCell>
             <TableCell align="right">{row.teamName}</TableCell>
             <TableCell align="right">{row.coach}</TableCell>
             <TableCell align="right">{row.uniform}</TableCell>
