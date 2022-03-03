@@ -27,7 +27,7 @@ const PostForm = () => {
     const [teamData, setTeamData] = useState([])
     const [counter, setCounter] = useState(1)
 
-    const [ home, setHome ] = useState("")
+    // const [ home, setHome ] = useState("")
 
     const [ editTableData, setEditTableData ] = useState({
         teamName: "",
@@ -37,13 +37,13 @@ const PostForm = () => {
     })
 
     const [ editID, setEditID ] = useState(null)
-    const [ teamID, setTeamID ] = useState()
+    // const [ teamID, setTeamID ] = useState()
 
-    useEffect(() => {
-        axios.get("http://localhost:8888/team").then(function(response) {
-            setHome(response.data)
-        })
-    }, [])
+    // useEffect(() => {
+    //     axios.get("http://localhost:8888/team").then(function(response) {
+    //         setHome(response.data)
+    //     })
+    // }, [])
 
     const submitData = async (e) => {
         e.preventDefault()
@@ -86,37 +86,38 @@ const PostForm = () => {
         e.preventDefault();
     
         const editedTeam = {
-          teamName: editTableData.teamName,
-          coach: editTableData.coach,
-          uniform: editTableData.uniform,
-          stadium: editTableData.stadium,
+            id: editID,
+            teamName: editTableData.teamName,
+            coach: editTableData.coach,
+            uniform: editTableData.uniform,
+            stadium: editTableData.stadium,
         };
     
-        const newTeamID = [...teamID];
+        const newTeam = [...teamData];
     
-        const index = teamID.findIndex((team) => team.id === editID);
+        const index = teamData.findIndex((team) => team.id === editID);
     
-        newTeamID[index] = editedTeam;
+        newTeam[index] = editedTeam;
     
-        setTeamData(newTeamID);
+        setTeamData(newTeam);
         setEditID(null);
     };
 
-    const handleEditClick = (e, teamData) => {
+    const handleEditClick = (e, team) => {
         e.preventDefault();
-        setTeamData(teamData.id);
+        setEditID(team.id);
     
         const formValues = {
-          teamName: teamData.teamName,
-          coach: teamData.coach,
-          uniform: teamData.uniform,
-          stadium: teamData.stadium,
+          teamName: team.teamName,
+          coach: team.coach,
+          uniform: team.uniform,
+          stadium: team.stadium,
         };
         setEditTableData(formValues);
     };
 
     const handleCancelClick = () => {
-        setTeamID(null);
+        setEditID(null);
     };
 
     const deleteData = (teamInfo) => {
@@ -179,19 +180,18 @@ const PostForm = () => {
                     />
                 </div>
                 <Button type="submit" onClick={submitData} variant="contained">
-                    {/* {teamData.id ? "Save" : "Submit"} */}
-                    Submit
+                    {teamData.id ? "Save" : "Submit"}
                 </Button>
-                {/* &nbsp;&nbsp;&nbsp;&nbsp;
-                <Button type="Edit" onClick={Save} variant="contained">{teamData.id ? "Save" : "Edit"}</Button> */}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <Button type="Edit" onClick={Save} variant="contained">{teamData.id ? "Save" : "Edit"}</Button>
                 
             </Box>
-            {home}
+            {/* {home} */}
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>My Soccer Team</TableCell>
+                            <TableCell>ID</TableCell>
                             <TableCell align="right">Team Name</TableCell>
                             <TableCell align="right">Coach</TableCell>
                             <TableCell align="right">Uniform</TableCell>

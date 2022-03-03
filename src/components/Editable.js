@@ -1,62 +1,62 @@
 import React from 'react'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TextField from '@mui/material/TextField';
 
-const Editable = () => {
-  return (
-    // <TableRow>
-    //     <TableCell align="right">
-    //         <TextField></TextField>
-    //     </TableCell>
-    //     <TableCell align="right"></TableCell>
-    //     <TableCell align="right"></TableCell>
-    //     <TableCell align="right"></TableCell>
-    //     <TableCell align="right">
-    //     </TableCell>
-    // </TableRow>
-    <tr>
-        <td>  
-        </td>
-        <td>
-            <input
-                type="text"
-                required="required"
-                placeholder="Enter a team name"
-                name="teamName"
-            />
-        </td>
-        <td>
-            <input
-                type="text"
-                required="required"
-                placeholder="Enter coach"
-                name="coach"
-            />
-        </td>
-        <td>
-            <input
-                type="text"
-                required="required"
-                placeholder="Enter uniform"
-                name="uniform"
-            />
-        </td>
-        <td>
-            <input
-                type="text"
-                required="required"
-                placeholder="Enter stadium"
-                name="stadium"
-            />
-        </td>
-    </tr>
-  )
+const Editable = ({
+    submitData,
+    editTableData,
+    editData,
+    handleCancelClick,
+}) => {
+    
+    return (
+        <tr>
+            <td>  
+            </td>
+            <td>
+                <input
+                    type="text"
+                    required="required"
+                    placeholder="Enter a team name"
+                    name="teamName"
+                    value={editTableData.teamName}
+                    onChange={editData}
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
+                    required="required"
+                    placeholder="Enter coach"
+                    name="coach"
+                    value={editTableData.coach}
+                    onChange={editData}
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
+                    required="required"
+                    placeholder="Enter uniform"
+                    name="uniform"
+                    value={editTableData.uniform}
+                    onChange={editData}
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
+                    required="required"
+                    placeholder="Enter stadium"
+                    name="stadium"
+                    value={editTableData.stadium}
+                    onChange={editData}
+                />
+            </td>
+            <td>
+                <button type="submit" onClick={submitData}>Save</button>
+                <button type="button" onClick={handleCancelClick}>Cancel</button>
+            </td>
+        </tr>
+    )
 }
 
 export default Editable

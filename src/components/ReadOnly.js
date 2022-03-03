@@ -8,23 +8,20 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const ReadOnly = ({ row, editData, deleteData }) => {
+const ReadOnly = ({ row, handleEditClick, deleteData }) => {
     return (
         <TableRow
             key={row.name}
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-            <TableCell component="th" scope="row">
-                {row.name}
-            </TableCell>
             <TableCell align="right">{row.id}</TableCell>
             <TableCell align="right">{row.teamName}</TableCell>
             <TableCell align="right">{row.coach}</TableCell>
             <TableCell align="right">{row.uniform}</TableCell>
             <TableCell align="right">{row.stadium}</TableCell>
             <TableCell align="right">
-                <Button type="edit" onClick={editData} variant="contained" color="success">Edit</Button>
-                <Button type="delete" onClick={deleteData} variant="contained" color="error">Delete</Button>
+                <Button type="edit" onClick={(e) => handleEditClick(e, row)} variant="contained" color="success">Edit</Button>
+                <Button type="delete" onClick={() => deleteData(row.id)} variant="contained" color="error">Delete</Button>
             </TableCell>
         </TableRow>
     )
