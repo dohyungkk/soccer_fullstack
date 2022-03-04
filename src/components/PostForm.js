@@ -185,7 +185,7 @@ const PostForm = () => {
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <Button onClick={() => changeText("Save")}>{buttonText}</Button>
                 
-            </Box>
+            
             {/* {home} */}
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -221,6 +221,7 @@ const PostForm = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            </Box>
         </>
     )
 }
