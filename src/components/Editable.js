@@ -1,18 +1,22 @@
 import React from 'react'
+import Button from '@mui/material/Button';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import TextField from '@mui/material/TextField';
 
 const Editable = ({
-    submitData,
+    handleEditTableSubmit,
     editTableData,
     editData,
     handleCancelClick,
 }) => {
     
     return (
-        <tr>
-            <td>  
-            </td>
-            <td>
-                <input
+        <TableRow>
+            <TableCell>  
+            </TableCell>
+            <TableCell>
+                <TextField
                     type="text"
                     required="required"
                     placeholder="Enter a team name"
@@ -20,9 +24,9 @@ const Editable = ({
                     value={editTableData.teamName}
                     onChange={editData}
                 />
-            </td>
-            <td>
-                <input
+            </TableCell>
+            <TableCell>
+                <TextField
                     type="text"
                     required="required"
                     placeholder="Enter coach"
@@ -30,9 +34,9 @@ const Editable = ({
                     value={editTableData.coach}
                     onChange={editData}
                 />
-            </td>
-            <td>
-                <input
+            </TableCell>
+            <TableCell>
+                <TextField
                     type="text"
                     required="required"
                     placeholder="Enter uniform"
@@ -40,9 +44,9 @@ const Editable = ({
                     value={editTableData.uniform}
                     onChange={editData}
                 />
-            </td>
-            <td>
-                <input
+            </TableCell>
+            <TableCell>
+                <TextField
                     type="text"
                     required="required"
                     placeholder="Enter stadium"
@@ -50,12 +54,12 @@ const Editable = ({
                     value={editTableData.stadium}
                     onChange={editData}
                 />
-            </td>
-            <td>
-                <button type="submit" onClick={submitData}>Save</button>
-                <button type="button" onClick={handleCancelClick}>Cancel</button>
-            </td>
-        </tr>
+            </TableCell>
+            <TableCell>
+                <Button type="submit" onClick={handleEditTableSubmit} variant="contained">Save</Button>
+                <Button type="button" onClick={handleCancelClick} variant="contained" color="error">Cancel</Button>
+            </TableCell>
+        </TableRow>
     )
 }
 
