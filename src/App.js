@@ -5,8 +5,9 @@ import Arsenal from './img/4senal.png';
 import Ricky from './img/Ricky.png'
 
 const App = () => {
+  
   const clickMe = () =>{
-      <img src={Ricky}/>
+    alert(<img src={Ricky}/>)
   }
   return (
     <>

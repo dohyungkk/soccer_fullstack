@@ -127,9 +127,9 @@ const PostForm = () => {
         setTeamData(newTeam)
     }
 
-    const Save = () =>{
-        alert("Save")
-    }
+    const [buttonText, setButtonText] = useState("Edit"); //same as creating your state variable where "Next" is the default value for buttonText and setButtonText is the setter function for your state variable instead of setState
+
+    const changeText = (text) => setButtonText(text);
 
     return (
         <>
@@ -183,7 +183,7 @@ const PostForm = () => {
                     {teamData.id ? "Save" : "Submit"}
                 </Button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <Button type="Edit" onClick={Save} variant="contained">{teamData.id ? "Save" : "Edit"}</Button>
+                <Button onClick={() => changeText("Save")}>{buttonText}</Button>
                 
             </Box>
             {/* {home} */}
