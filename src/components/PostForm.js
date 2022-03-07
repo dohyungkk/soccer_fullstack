@@ -20,15 +20,19 @@ import ReadOnly from './ReadOnly.js'
 import Editable from './Editable'
 
 const PostForm = () => {
+    // each is saved for object
     const [teamName, setTeamName] = useState("")
     const [coach, setCoach] = useState("")
     const [uniform, setUniform] = useState("")
     const [stadium, setStadium] = useState("")
+
+    // array of object
     const [teamData, setTeamData] = useState([])
+
+    // set to 1 for ID
     const [counter, setCounter] = useState(1)
 
-    // const [ home, setHome ] = useState("")
-
+    // we only need these 4 values for edits
     const [ editTableData, setEditTableData ] = useState({
         teamName: "",
         coach: "",
@@ -36,15 +40,10 @@ const PostForm = () => {
         stadium: "",
     })
 
+    // keeping the ID as is
     const [ editID, setEditID ] = useState(null)
-    // const [ teamID, setTeamID ] = useState()
 
-    // useEffect(() => {
-    //     axios.get("http://localhost:8888/team").then(function(response) {
-    //         setHome(response.data)
-    //     })
-    // }, [])
-
+    // submit function to store values. Calling "newData" to be stored on "teamData" and posting it to the backend
     const submitData = async (e) => {
         e.preventDefault()
 
@@ -62,15 +61,16 @@ const PostForm = () => {
         setUniform("")
         setStadium("")
         try {
-            axios.post("http://localhost:8888/team", {
+            await axios.post("http://localhost:8888/team", {
                 teamData
             })
         } catch (error) {
             console.log(error)
         }
     }
-    console.log(teamData)
+    // console.log(teamData)
 
+    // function to call whenever the inputs are edited
     const editData = (e) => {
         e.preventDefault()
         const fieldName = e.target.getAttribute("name");
@@ -82,7 +82,8 @@ const PostForm = () => {
         setEditTableData(newFormData);
     }
 
-    const handleEditTableSubmit = (e) => {
+    // submit the editted values from Editable.js
+    const handleEditTableSubmit = (e, id) => {
         e.preventDefault();
     
         const editedTeam = {
@@ -94,15 +95,17 @@ const PostForm = () => {
         };
     
         const newTeam = [...teamData];
-    
         const index = teamData.findIndex((team) => team.id === editID);
-    
         newTeam[index] = editedTeam;
-    
         setTeamData(newTeam);
         setEditID(null);
+        axios.put(`http://localhost:8888/team/${id}`, {
+            newTeam
+        })
+        
     };
 
+    // pass in the saved values on ReadOnly.js view
     const handleEditClick = (e, team) => {
         e.preventDefault();
         setEditID(team.id);
@@ -116,15 +119,20 @@ const PostForm = () => {
         setEditTableData(formValues);
     };
 
+    // cancels the edit
     const handleCancelClick = () => {
         setEditID(null);
     };
 
-    const deleteData = (teamInfo) => {
+    // deletes the row
+    const deleteData = (teamInfo, id) => {
         const newTeam = [...teamData]
         const index = teamData.findIndex((team) => team.id === teamInfo)
         newTeam.splice(index, 1)
         setTeamData(newTeam)
+        axios.delete(`http://localhost:8888/team/${id}`, {
+            newTeam
+        })
     }
 
     const [buttonText, setButtonText] = useState("Edit"); //same as creating your state variable where "Edit" is the default value for buttonText and setButtonText is the setter function for your state variable instead of setState
@@ -196,9 +204,7 @@ const PostForm = () => {
                     {buttonText}
                 </Button>
                 
-                
-            
-            {/* {home} */}
+
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
