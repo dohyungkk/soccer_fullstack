@@ -61,14 +61,14 @@ const PostForm = () => {
         setUniform("")
         setStadium("")
         try {
-            axios.post("http://localhost:8888/team", {
+            await axios.post("http://localhost:8888/team", {
                 teamData
             })
         } catch (error) {
             console.log(error)
         }
     }
-    console.log(teamData)
+    // console.log(teamData)
 
     // function to call whenever the inputs are edited
     const editData = (e) => {
@@ -83,7 +83,7 @@ const PostForm = () => {
     }
 
     // submit the editted values from Editable.js
-    const handleEditTableSubmit = (e) => {
+    const handleEditTableSubmit = (e, id) => {
         e.preventDefault();
     
         const editedTeam = {
@@ -97,9 +97,12 @@ const PostForm = () => {
         const newTeam = [...teamData];
         const index = teamData.findIndex((team) => team.id === editID);
         newTeam[index] = editedTeam;
-    
         setTeamData(newTeam);
         setEditID(null);
+        axios.put(`http://localhost:8888/team/${id}`, {
+            newTeam
+        })
+        
     };
 
     // pass in the saved values on ReadOnly.js view
@@ -122,11 +125,14 @@ const PostForm = () => {
     };
 
     // deletes the row
-    const deleteData = (teamInfo) => {
+    const deleteData = (teamInfo, id) => {
         const newTeam = [...teamData]
         const index = teamData.findIndex((team) => team.id === teamInfo)
         newTeam.splice(index, 1)
         setTeamData(newTeam)
+        axios.delete(`http://localhost:8888/team/${id}`, {
+            newTeam
+        })
     }
 
     const [buttonText, setButtonText] = useState("Edit"); //same as creating your state variable where "Next" is the default value for buttonText and setButtonText is the setter function for your state variable instead of setState
