@@ -135,18 +135,9 @@ const PostForm = () => {
         })
     }
 
-    const [buttonText, setButtonText] = useState("Edit"); //same as creating your state variable where "Edit" is the default value for buttonText and setButtonText is the setter function for your state variable instead of setState
-    
-    const handleClick = () => {
-            switch (buttonText) {
-              case "Edit":
-                setButtonText("Save");
-                break;
-              case "Save":
-                setButtonText("Edit");
-                break;
-      }
-    };
+    const [buttonText, setButtonText] = useState("Edit"); //same as creating your state variable where "Next" is the default value for buttonText and setButtonText is the setter function for your state variable instead of setState
+
+    const changeText = (text) => setButtonText(text);
 
     return (
         <>
@@ -200,11 +191,8 @@ const PostForm = () => {
                     {teamData.id ? "Save" : "Submit"}
                 </Button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <Button type="Edit" onClick={() => handleClick()}variant="contained">
-                    {buttonText}
-                </Button>
+                <Button onClick={() => changeText("Save")}>{buttonText}</Button>
                 
-
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
