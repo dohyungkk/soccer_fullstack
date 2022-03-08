@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -99,9 +99,16 @@ const PostForm = () => {
         newTeam[index] = editedTeam;
         setTeamData(newTeam);
         setEditID(null);
-        axios.put(`http://localhost:8888/team/${id}`, {
-            newTeam
-        })
+        try {
+            axios.put(`http://localhost:8888/team/${id}`, {
+                newTeam
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        // axios.put(`http://localhost:8888/team/${id}`, {
+        //     newTeam
+        // })
         
     };
 
@@ -129,23 +136,30 @@ const PostForm = () => {
         const newTeam = [...teamData]
         const index = teamData.findIndex((team) => team.id === teamInfo)
         newTeam.splice(index, 1)
-        setTeamData(newTeam)
-        axios.delete(`http://localhost:8888/team/${id}`, {
-            newTeam
-        })
+        axios.delete("http://localhost:8888/team/delete",{ newTeam }).then(
+            setTeamData(newTeam)
+        )
+
+        // axios.delete("http://localhost:8888/team/delete").then(function (response) {
+
+        // })
+
+        // axios.delete(`http://localhost:8888/team/${id}`, {
+        //     newTeam
+        // })
     }
 
     const [buttonText, setButtonText] = useState("Edit"); //same as creating your state variable where "Edit" is the default value for buttonText and setButtonText is the setter function for your state variable instead of setState
     
     const handleClick = () => {
-            switch (buttonText) {
-              case "Edit":
-                setButtonText("Save");
-                break;
-              case "Save":
-                setButtonText("Edit");
-                break;
-      }
+        switch (buttonText) {
+            case "Edit":
+            setButtonText("Save");
+            break;
+            case "Save":
+            setButtonText("Edit");
+            break;
+        }
     };
 
     return (

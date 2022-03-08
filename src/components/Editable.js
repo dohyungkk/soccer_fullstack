@@ -58,11 +58,7 @@ const Editable = ({
                 />
             </TableCell>
             <TableCell>
-
-                <Button type="submit" onClick={handleEditTableSubmit} variant="contained">Save</Button>
-
                 <Button type="submit" variant="contained">Save</Button>
-
                 <Button type="button" onClick={handleCancelClick} variant="contained" color="error">Cancel</Button>
             </TableCell>
         </TableRow>
