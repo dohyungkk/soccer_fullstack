@@ -49,13 +49,13 @@ const PostForm = () => {
 
         setCounter(counter => counter + 1)
         const newData = {
-            id: counter,
             teamName: teamName, 
             coach: coach, 
             uniform: uniform, 
             stadium: stadium
         }
         setTeamData([...teamData, newData])
+        // null > empty string
         setTeamName("")
         setCoach("")
         setUniform("")
@@ -66,9 +66,10 @@ const PostForm = () => {
             })
         } catch (error) {
             console.log(error)
+            //explain better error handling
         }
     }
-    // console.log(teamData)
+    console.log(teamData)
 
     // function to call whenever the inputs are edited
     const editData = (e) => {
@@ -87,7 +88,6 @@ const PostForm = () => {
         e.preventDefault();
     
         const editedTeam = {
-            id: editID,
             teamName: editTableData.teamName,
             coach: editTableData.coach,
             uniform: editTableData.uniform,
@@ -106,10 +106,6 @@ const PostForm = () => {
         } catch (error) {
             console.log(error)
         }
-        // axios.put(`http://localhost:8888/team/${id}`, {
-        //     newTeam
-        // })
-        
     };
 
     // pass in the saved values on ReadOnly.js view
@@ -132,36 +128,36 @@ const PostForm = () => {
     };
 
     // deletes the row
-    const deleteData = (teamInfo, id) => {
+    const deleteData = async (teamInfo, id) => {
         const newTeam = [...teamData]
         const index = teamData.findIndex((team) => team.id === teamInfo)
         newTeam.splice(index, 1)
-        axios.delete("http://localhost:8888/team/delete",{ newTeam }).then(
-            setTeamData(newTeam)
-        )
-
-        // axios.delete("http://localhost:8888/team/delete").then(function (response) {
-
-        // })
-
-        // axios.delete(`http://localhost:8888/team/${id}`, {
-        //     newTeam
-        // })
+        setTeamData(newTeam)
+        // try {
+        //     await axios.delete(`http://localhost:8888/team/${id}`, {
+        //         teamData
+        //     })
+        // } catch (error) {
+        //     console.log(error)
+        //     //explain better error handling
+        // }
+        try {
+            axios.delete(`http://localhost:8888/team/${id}`, newTeam).then(
+                setTeamData(newTeam)
+        )} catch (error) {
+            console.log(error)
+        }
+        
     }
 
-    const [buttonText, setButtonText] = useState("Edit"); //same as creating your state variable where "Edit" is the default value for buttonText and setButtonText is the setter function for your state variable instead of setState
-    
-    const handleClick = () => {
-        switch (buttonText) {
-            case "Edit":
-            setButtonText("Save");
-            break;
-            case "Save":
-            setButtonText("Edit");
-            break;
-        }
-    };
+    const [buttonText, setButtonText] = useState("Edit"); //same as creating your state variable where "Next" is the default value for buttonText and setButtonText is the setter function for your state variable instead of setState
 
+    const changeText = (text) => setButtonText(text);
+
+    // line 170~172
+    const teamOne = {
+        lv: "Liverpool"
+    }
     return (
         <>
             <Box
@@ -182,6 +178,7 @@ const PostForm = () => {
                         label="Team Name"
                         onChange={(e) => {setTeamName(e.target.value)}}
                     >
+                        {/* const name */}
                         <MenuItem value="Manchester"><img src = {MU}/>Manchester</MenuItem>
                         <MenuItem value="Liverpool"><img src = {LFC}/>Liverpool</MenuItem>
                         <MenuItem value="Chelsea"><img src = {CFC}/>Chelsea</MenuItem>
@@ -214,16 +211,14 @@ const PostForm = () => {
                     {teamData.id ? "Save" : "Submit"}
                 </Button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <Button type="Edit" onClick={() => handleClick()}variant="contained">
-                    {buttonText}
-                </Button>
+                <Button onClick={() => changeText("Save")}>{buttonText}</Button>
                 
-
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
+                        {/* 1 line */}
                         <TableRow>
-                            <TableCell>ID</TableCell>
+                            {/* <TableCell align="right">ID</TableCell> */}
                             <TableCell align="right">Team Name</TableCell>
                             <TableCell align="right">Coach</TableCell>
                             <TableCell align="right">Uniform</TableCell>

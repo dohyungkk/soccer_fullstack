@@ -5,9 +5,6 @@ import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
 
 const Editable = ({
-
-    handleEditTableSubmit,
-
     editTableData,
     editData,
     handleCancelClick,

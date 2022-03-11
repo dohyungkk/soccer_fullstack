@@ -9,7 +9,7 @@ const ReadOnly = ({ row, handleEditClick, deleteData }) => {
             key={row.name}
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-            <TableCell align="right">{row.id}</TableCell>
+            {/* <TableCell align="right">{row.counter}</TableCell> */}
             <TableCell align="right">{row.teamName}</TableCell>
             <TableCell align="right">{row.coach}</TableCell>
             <TableCell align="right">{row.uniform}</TableCell>
