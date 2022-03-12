@@ -49,13 +49,13 @@ const PostForm = () => {
 
         setCounter(counter => counter + 1)
         const newData = {
+            id: counter,
             teamName: teamName, 
             coach: coach, 
             uniform: uniform, 
             stadium: stadium
         }
         setTeamData([...teamData, newData])
-        // null > empty string
         setTeamName("")
         setCoach("")
         setUniform("")
@@ -66,7 +66,6 @@ const PostForm = () => {
             })
         } catch (error) {
             console.log(error)
-            //explain better error handling
         }
     }
     console.log(teamData)
@@ -128,27 +127,26 @@ const PostForm = () => {
     };
 
     // deletes the row
-    const deleteData = async (teamInfo, id) => {
+    const deleteData = (teamInfo, id) => {
         const newTeam = [...teamData]
         const index = teamData.findIndex((team) => team.id === teamInfo)
         newTeam.splice(index, 1)
         setTeamData(newTeam)
-        // try {
-        //     await axios.delete(`http://localhost:8888/team/${id}`, {
-        //         teamData
-        //     })
-        // } catch (error) {
-        //     console.log(error)
-        //     //explain better error handling
-        // }
-        try {
-            axios.delete(`http://localhost:8888/team/${id}`, newTeam).then(
-                setTeamData(newTeam)
-        )} catch (error) {
-            console.log(error)
-        }
-        
+        axios.delete(`http://localhost:8888/team/${id}`, {
+            newTeam
+        })
     }
+
+    // const deleteData = async id => {
+    //     try {
+    //         const deleteData = await fetch(`http://localhost:8888/team/${id}`, {
+    //             method: "DELETE"
+    //         })
+    //         setTeamData(teamData.filter(team => team.id !== id))
+    //     } catch (err) {
+    //         console.error(err.message)
+    //     }
+    // }
 
     const [buttonText, setButtonText] = useState("Edit"); //same as creating your state variable where "Next" is the default value for buttonText and setButtonText is the setter function for your state variable instead of setState
 
