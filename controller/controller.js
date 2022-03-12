@@ -15,6 +15,14 @@ exports.getTeams = (req, res) => {
     })
 }
 
+exports.getTeamById = (req, res) => {
+    const id = parseInt(req.params.id)
+    pool.query(queries.getTeamById, [id], (error, results) => {
+        if (error) throw error
+        res.status(200).json(results.rows)
+    })
+}
+
 exports.createTeam = async (req, res) => {
     const { teamData } = req.body
     teams.push({...teamData})
@@ -35,16 +43,46 @@ exports.createTeam = async (req, res) => {
 }
 
 exports.updateTeam = (req, res) => {
-    const team = teams.find((team) => team.id === req.params.id)
-    team.teamName = req.body.teamName
-    team.coach = req.body.coach
-    team.uniform = req.body.uniform
-    team.stadium = req.body.stadium
+    // const team = teams.find((team) => team.id === req.params.id)
+    // team.teamName = req.body.teamName
+    // team.coach = req.body.coach
+    // team.uniform = req.body.uniform
+    // team.stadium = req.body.stadium
 
-    console.log('data has been edited')
+    // console.log('data has been edited')
+
+    const id = parseInt(req.params.id)
+    const { teamData } = req.body
+    pool.query(queries.getTeamById, [id], (error, results) => {
+        const noTeamFound = !results.rows.length
+        if (noTeamFound) {
+            res.send("Team does not exist in the db")
+        }
+        pool.query(queries.updateTeam, [teamData, id], (error, results) => {
+            if (error) throw error
+            res.status(200).send("Team removed successfully")
+        })
+    })
 }
 
-exports.deleteTeam = (req, res) => {
-    console.log('data has been deleted')
-    teams = teams.filter((team) => team.id === req.params.id)
+exports.deleteTeam = async (req, res) => {
+    // const { teamData } = req.body
+    // teams.push({...teamData})
+    // teams = teams.filter((team) => team.id === req.params.id)
+    // pool.query(queries.removeTeam, [id], (error, results) => {
+    //     if (error) throw error
+    // })
+    // console.log(req.params)
+
+    const id = parseInt(req.params.id)
+    pool.query(queries.getTeamById, [id], (error, results) => {
+        const noTeamFound = !results.rows.length
+        if (noTeamFound) {
+            res.send("Team does not exist in the db")
+        }
+        pool.query(queries.removeTeam, [id], (error, results) => {
+            if (error) throw error
+            res.status(200).send("Team removed successfully")
+        })
+    })
 }
