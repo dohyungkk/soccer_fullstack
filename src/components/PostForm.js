@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -68,7 +68,7 @@ const PostForm = () => {
             console.log(error)
         }
     }
-    // console.log(teamData)
+    console.log(teamData)
 
     // function to call whenever the inputs are edited
     const editData = (e) => {
@@ -87,7 +87,6 @@ const PostForm = () => {
         e.preventDefault();
     
         const editedTeam = {
-            id: editID,
             teamName: editTableData.teamName,
             coach: editTableData.coach,
             uniform: editTableData.uniform,
@@ -99,10 +98,13 @@ const PostForm = () => {
         newTeam[index] = editedTeam;
         setTeamData(newTeam);
         setEditID(null);
-        axios.put(`http://localhost:8888/team/${id}`, {
-            newTeam
-        })
-        
+        try {
+            axios.put(`http://localhost:8888/team/${id}`, {
+                newTeam
+            })
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     // pass in the saved values on ReadOnly.js view
@@ -135,6 +137,17 @@ const PostForm = () => {
         })
     }
 
+    // const deleteData = async id => {
+    //     try {
+    //         const deleteData = await fetch(`http://localhost:8888/team/${id}`, {
+    //             method: "DELETE"
+    //         })
+    //         setTeamData(teamData.filter(team => team.id !== id))
+    //     } catch (err) {
+    //         console.error(err.message)
+    //     }
+    // }
+
     const [buttonText, setButtonText] = useState("Edit"); //same as creating your state variable where "Next" is the default value for buttonText and setButtonText is the setter function for your state variable instead of setState
 
     const handleClick = () => {
@@ -149,6 +162,10 @@ const PostForm = () => {
   }
 };
 
+    // line 170~172
+    const teamOne = {
+        lv: "Liverpool"
+    }
     return (
         <>
             <Box
@@ -169,6 +186,7 @@ const PostForm = () => {
                         label="Team Name"
                         onChange={(e) => {setTeamName(e.target.value)}}
                     >
+                        {/* const name */}
                         <MenuItem value="Manchester"><img src = {MU}/>Manchester</MenuItem>
                         <MenuItem value="Liverpool"><img src = {LFC}/>Liverpool</MenuItem>
                         <MenuItem value="Chelsea"><img src = {CFC}/>Chelsea</MenuItem>
@@ -208,8 +226,9 @@ const PostForm = () => {
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
+                        {/* 1 line */}
                         <TableRow>
-                            <TableCell>ID</TableCell>
+                            {/* <TableCell align="right">ID</TableCell> */}
                             <TableCell align="right">Team Name</TableCell>
                             <TableCell align="right">Coach</TableCell>
                             <TableCell align="right">Uniform</TableCell>
