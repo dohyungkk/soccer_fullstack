@@ -5,9 +5,9 @@ const queries = require("../database/queries.js")
 let teams = []
 
 exports.getTeams = (req, res) => {
-    let readData = fs.readFileSync("data.json")
-    let getData = JSON.parse(readData)
-    res.send(getData)
+    // let readData = fs.readFileSync("data.json")
+    // let getData = JSON.parse(readData)
+    // res.send(getData)
 
     pool.query(queries.getTeams, (error, results) => {
         if (error) throw error
@@ -25,13 +25,13 @@ exports.getTeamById = (req, res) => {
 
 exports.createTeam = async (req, res) => {
     const { teamData } = req.body
-    teams.push({...teamData})
+    // teams.push({...teamData})
     // console.log(teams)
-    let addData = JSON.stringify(teamData)
-    fs.writeFile("data.json", addData, (err) => {
-        if (err) throw err
-        console.log("new data added")
-    })
+    // let addData = JSON.stringify(teamData)
+    // fs.writeFile("data.json", addData, (err) => {
+    //     if (err) throw err
+    //     console.log("new data added")
+    // })
     
     pool.query(queries.addTeam, [teamData], (error, results) => {
         if (error) throw error
