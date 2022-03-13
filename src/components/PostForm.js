@@ -49,7 +49,6 @@ const PostForm = () => {
 
         setCounter(counter => counter + 1)
         const newData = {
-            id: counter,
             teamName: teamName, 
             coach: coach, 
             uniform: uniform, 
