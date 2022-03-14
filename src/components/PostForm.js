@@ -49,7 +49,6 @@ const PostForm = () => {
 
         setCounter(counter => counter + 1)
         const newData = {
-            id: counter,
             teamName: teamName, 
             coach: coach, 
             uniform: uniform, 
@@ -163,9 +162,36 @@ const PostForm = () => {
 };
 
     // line 170~172
-    const teamOne = {
-        lv: "Liverpool"
+    const epl = {
+        mu: "Manchester Utd",
+        lv: "Liverpool",
+        ch: "Chelsea"
     }
+
+    // const images = [
+    //     {
+    //         "image": MU
+    //     }
+    // ]
+
+    // const textVal = [
+    //     { id: "outlined-required", label: "Coach", value: {coach} },
+    //     { id: "outlined-required", label: "Uniform", value: {uniform} },
+    //     { id: "outlined-required", label: "Stadium", value: {stadium} }
+    // ]
+
+    // const textMap = textVal.map((text) => <MenuItem key={text.id} label={text.label} value={text.value} />)
+
+    const tableName = [
+        { align: 'right', label: 'Team Name' },
+        { align: 'right', label: 'Coach' },
+        { align: 'right', label: 'Uniform' },
+        { align: 'right', label: 'Stadium' },
+        { align: 'right', label: 'Button' },
+    ]
+
+    const tableNameMap = tableName.map((row) => <TableCell align={row.align} label={row.label} />)
+
     return (
         <>
             <Box
@@ -187,12 +213,13 @@ const PostForm = () => {
                         onChange={(e) => {setTeamName(e.target.value)}}
                     >
                         {/* const name */}
-                        <MenuItem value="Manchester"><img src = {MU}/>Manchester</MenuItem>
-                        <MenuItem value="Liverpool"><img src = {LFC}/>Liverpool</MenuItem>
-                        <MenuItem value="Chelsea"><img src = {CFC}/>Chelsea</MenuItem>
+                        <MenuItem value="Manchester"><img src = {MU} />{epl.mu}</MenuItem>
+                        <MenuItem value="Liverpool"><img src = {LFC}/>{epl.lv}</MenuItem>
+                        <MenuItem value="Chelsea"><img src = {CFC}/>{epl.ch}</MenuItem>
                     </Select>
                 </div>
                 <div>
+                    {/* {textMap} */}
                     <TextField
                         required
                         id="outlined-required"
@@ -229,11 +256,13 @@ const PostForm = () => {
                         {/* 1 line */}
                         <TableRow>
                             {/* <TableCell align="right">ID</TableCell> */}
+                            
                             <TableCell align="right">Team Name</TableCell>
                             <TableCell align="right">Coach</TableCell>
                             <TableCell align="right">Uniform</TableCell>
                             <TableCell align="right">Stadium</TableCell>
                             <TableCell align="right">Button</TableCell>
+                            {/* {tableNameMap} */}
                         </TableRow>
                     </TableHead>
                     <TableBody>
