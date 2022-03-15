@@ -175,22 +175,22 @@ const PostForm = () => {
     // ]
 
     // const textVal = [
-    //     { id: "outlined-required", label: "Coach", value: {coach} },
-    //     { id: "outlined-required", label: "Uniform", value: {uniform} },
-    //     { id: "outlined-required", label: "Stadium", value: {stadium} }
+    //     { label: "Coach", value: {coach} },
+    //     { label: "Uniform", value: {uniform} },
+    //     { label: "Stadium", value: {stadium} }
     // ]
 
-    // const textMap = textVal.map((text) => <MenuItem key={text.id} label={text.label} value={text.value} />)
+    // const textMap = textVal.map((text) => <MenuItem id="outlined-required" label={text.label} value={text.value} />)
 
-    const tableName = [
-        { align: 'right', label: 'Team Name' },
-        { align: 'right', label: 'Coach' },
-        { align: 'right', label: 'Uniform' },
-        { align: 'right', label: 'Stadium' },
-        { align: 'right', label: 'Button' },
-    ]
+    // const tableName = [
+    //     { align: 'right', label: 'Team Name' },
+    //     { align: 'right', label: 'Coach' },
+    //     { align: 'right', label: 'Uniform' },
+    //     { align: 'right', label: 'Stadium' },
+    //     { align: 'right', label: 'Button' },
+    // ]
 
-    const tableNameMap = tableName.map((row) => <TableCell align={row.align} label={row.label} />)
+    // const tableNameMap = tableName.map((row) => <TableCell align={row.align} label={row.label} />)
 
     return (
         <>
@@ -219,7 +219,6 @@ const PostForm = () => {
                     </Select>
                 </div>
                 <div>
-                    {/* {textMap} */}
                     <TextField
                         required
                         id="outlined-required"
