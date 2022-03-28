@@ -1,7 +1,8 @@
-const fs = require("fs")
+// const fs = require("fs")
 const pool = require("../database/db.js")
 const queries = require("../database/queries.js")
 const PostMessage = require("../models/models.js")
+const teamInfo = require("../database/models/teamInfo.js")
 
 let teams = []
 
@@ -11,7 +12,12 @@ exports.getTeams = (req, res) => {
     // res.send(getData)
 
     pool.query(queries.getTeams, (error, results) => {
+
         if (error) throw error
+
+        const { id } = req.params
+        const info = await teamInfo.query().findById(id)
+        
         res.status(200).json(results.rows)
     })
 }
@@ -33,6 +39,7 @@ exports.createTeam = async (req, res) => {
     //     if (err) throw err
     //     console.log("new data added")
     // })
+    console.log(PostMessage)
     
     pool.query(queries.addTeam, [teamData], (error, results) => {
         if (error) throw error

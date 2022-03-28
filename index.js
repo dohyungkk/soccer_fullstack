@@ -1,6 +1,9 @@
 const express = require('express')
 const cors = require('cors')
 const teamRoutes = require('./routes/routes.js')
+const setUpDB = require('./database/db_setup.js')
+
+setUpDB()
 
 const app = express()
 const HOST = 'http://localhost'
